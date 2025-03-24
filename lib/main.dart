@@ -7,14 +7,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'Form Validation Demo';
+    const appTitle = 'Signup Page';
 
     return MaterialApp(
       title: appTitle,
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text(appTitle),
-        ),
+        appBar: AppBar(title: const Text(appTitle)),
         body: const MyCustomForm(),
       ),
     );
@@ -50,16 +48,48 @@ class MyCustomFormState extends State<MyCustomForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
+            decoration: InputDecoration(hintText: 'First name and Last Name'),
             // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter some text';
+                return 'Please enter your name';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            decoration: InputDecoration(hintText: 'Email'),
+            // The validator receives the text that the user has entered.
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your email';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            decoration: InputDecoration(hintText: 'Password '),
+            // The validator receives the text that the user has entered.
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your password';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            // The validator receives the text that the user has entered.
+            decoration: InputDecoration(hintText: 'Date of Birth MM/DD/YYYY'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your date of birth';
               }
               return null;
             },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
+
             child: ElevatedButton(
               onPressed: () {
                 // Validate returns true if the form is valid, or false otherwise.
