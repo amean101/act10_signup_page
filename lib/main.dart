@@ -38,11 +38,14 @@ class MyCustomFormState extends State<MyCustomForm> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _dobController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
+    
     return Form(
+      
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,9 +80,29 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
+
           TextFormField(
-            // The validator receives the text that the user has entered.
-            decoration: InputDecoration(hintText: 'Date of Birth MM/DD/YYYY'),
+            controller: _dobController,
+            decoration: const InputDecoration(
+              hintText: 'Date of Birth MM/DD/YYYY',
+              suffixIcon: Icon(Icons.calendar_today),
+            ),
+            readOnly: true,
+            onTap: () async {
+              DateTime? pickedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime(2000),
+                firstDate: DateTime(1900), 
+                lastDate: DateTime.now(), 
+              );
+              if (pickedDate != null) {
+                String formattedDate =
+                    "${pickedDate.month}/${pickedDate.day}/${pickedDate.year}";
+                setState(() {
+                  _dobController.text = formattedDate;
+                });
+              }
+            },
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your date of birth';
@@ -87,6 +110,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
 
