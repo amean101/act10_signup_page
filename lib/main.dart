@@ -43,9 +43,8 @@ class MyCustomFormState extends State<MyCustomForm> {
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
-    
+
     return Form(
-      
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,8 +70,8 @@ class MyCustomFormState extends State<MyCustomForm> {
             },
           ),
           TextFormField(
-            decoration: InputDecoration(hintText: 'Password '),
-            // The validator receives the text that the user has entered.
+            decoration: const InputDecoration(hintText: 'Password'),
+            obscureText: true, 
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your password';
@@ -92,8 +91,8 @@ class MyCustomFormState extends State<MyCustomForm> {
               DateTime? pickedDate = await showDatePicker(
                 context: context,
                 initialDate: DateTime(2000),
-                firstDate: DateTime(1900), 
-                lastDate: DateTime.now(), 
+                firstDate: DateTime(1900),
+                lastDate: DateTime.now(),
               );
               if (pickedDate != null) {
                 String formattedDate =
